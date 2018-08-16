@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">HttpDemo</string>
+    <string name="title_activity_main">HttpDemo</string>
+    <string name="package_name">com.meetmaestro.hive.capacitor.httpdemo</string>
+    <string name="fileprovider_authority">com.meetmaestro.hive.capacitor.httpdemo.fileprovider</string>
+    <string name="custom_url_scheme">com.meetmaestro.hive.capacitor.httpdemo</string>
+</resources>
