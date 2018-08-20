@@ -23,7 +23,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
     <output url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/classes/debug" />
     <output-test url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/classes/test/debug" />
     <exclude-output />
@@ -45,16 +45,24 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/generated/source/apt/test/debug" isTestSource="true" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/attr" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/check-manifest" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/incremental" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/intermediate-jars" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/javaPrecompile" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/packaged-aidl" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/packagedAssets" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/packaged_res" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/public_res" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/rs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/shaders" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/symbols" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/tmp" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/androidTest/aidl">
       <sourceFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/androidTest/aidl" isTestSource="true" />
@@ -183,7 +191,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/testDebug/shaders" isTestSource="true" />
     </content>
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test:runner-1.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:transition-27.1.1" level="project" />
@@ -227,9 +235,9 @@
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-integration:1.3@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-common-16.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/Users/triniwiz/.gradle/caches/transforms-1/files-1.1/PersistentCookieJar-v1.0.1.aar/7e71cc05ecf73e46106486ed674ea732:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.core:common:1.1.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: net.sf.kxml:kxml2:2.3.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:runtime-1.1.0" level="project" />
-    <orderEntry type="library" name="Gradle: android-android-27" level="project" />
   </component>
 </module>

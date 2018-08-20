@@ -8,7 +8,7 @@ INJECTED from /Users/triniwiz/Documents/projects/plugins/capacitor/capacitor-htt
 INJECTED from /Users/triniwiz/Documents/projects/plugins/capacitor/capacitor-http/demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/main/AndroidManifest.xml:2:3-4:12
 INJECTED from /Users/triniwiz/Documents/projects/plugins/capacitor/capacitor-http/demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/main/AndroidManifest.xml:2:3-4:12
 	package
-		ADDED from /Users/triniwiz/Documents/projects/plugins/capacitor/capacitor-http/demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/main/AndroidManifest.xml:3:5-69
+		ADDED from /Users/triniwiz/Documents/projects/plugins/capacitor/capacitor-http/demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/main/AndroidManifest.xml:3:5-50
 		INJECTED from /Users/triniwiz/Documents/projects/plugins/capacitor/capacitor-http/demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/main/AndroidManifest.xml
 		INJECTED from /Users/triniwiz/Documents/projects/plugins/capacitor/capacitor-http/demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/src/main/AndroidManifest.xml
 	android:versionName

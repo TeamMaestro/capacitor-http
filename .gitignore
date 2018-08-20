@@ -6,5 +6,5 @@ demo/android/app/src/main/assets
 .idea
 .vscode
 demo/android/app/build
-src/android/capacitor-http/build
+src/android/@teamhive/capacitor-http/build
 demo/.gradle/4.4/

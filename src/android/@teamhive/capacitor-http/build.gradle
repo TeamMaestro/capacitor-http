@@ -30,6 +30,7 @@ android {
     }
 }
 
+
 repositories {
     google()
     jcenter()
@@ -40,8 +41,9 @@ repositories {
 }
 
 
+
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     implementation 'ionic-team:capacitor-android:1+'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     testImplementation 'junit:junit:4.12'

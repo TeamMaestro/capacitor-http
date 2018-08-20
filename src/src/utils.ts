@@ -1,11 +1,11 @@
-export function strMapToJson(strMap) {
-  return JSON.stringify(strMapToObj(strMap));
+export function strMapToJson(strMap: Map<any, any>) {
+    return JSON.stringify(strMapToObj(strMap));
 }
 
-export function strMapToObj(strMap) {
-  let obj = Object.create(null);
-  for (let [k, v] of strMap) {
-    obj[k] = v;
-  }
-  return obj;
+export function strMapToObj(strMap: any) {
+    let obj = Object.create(null);
+    for (let [k, v] of strMap) {
+        obj[k] = v;
+    }
+    return obj;
 }

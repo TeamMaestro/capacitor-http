@@ -1,61 +1,67 @@
 declare global {
-  interface PluginRegistry {
-    Http?: IHttp;
-  }
+    interface PluginRegistry {
+        HttpPlugin?: IHttp;
+    }
 }
 
-import { HttpParams } from './http-params';
 
 export interface IHttp {
-  request(options: HttpRequest): Promise<{ value: string }>;
-  request(options: { url: string }): Promise<{ value: string }>;
-  get(options: { url: string }): Promise<{ value: string }>;
-  post(options: { url: string }): Promise<{ value: string }>;
-  delete(options: { url: string }): Promise<{ value: string }>;
-  put(options: { url: string }): Promise<{ value: string }>;
-  options(options: { url: string }): Promise<{ value: string }>;
+    request(options: HttpRequest): Promise<HttpResponse>;
+
+    get(options: { url: string, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+
+    post(options: { url: string, body: Object | null, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+
+    delete(options: { url: string, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+
+    put(options: { url: string, body: Object | null, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+
+    options(options: { url: string, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+
+    head(options: { url: string, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+
+    setBasicAuth(options: { host: string, username: string, password: string }): Promise<any>;
+
+    getBasicAuth(options: { host: string }): Promise<{ value: string }>;
+
+    setHeader(options: { host: string, header: string, value: string }): Promise<any>;
+
+    getHeaders(options: { host: string }): Promise<{ value: any }>;
+
+    setDataSerializer(options: { serializer: 'text' | 'json' | 'urlencoded' }): Promise<any>;
+
+    getDataSerializer(): Promise<{ value: string }>;
+
+    setRequestTimeout(options: { timeout: number }): Promise<any>;
+
+    getCookieString(options: { host: string }): Promise<{ value: string }>;
+
+    clearCookies(): Promise<any>;
+
+    removeCookies(options: { host: string }): Promise<any>;
 }
 
-export interface HttpRequestOptions {
-  params?: HttpParams;
-}
-
-export class HttpRequest {
-  private _body: Object | null;
-  private _url: string;
-  private _method: HttpRequestMethod;
-  private _options: Object | null;
-
-  constructor(
+export interface HttpRequest {
     method: HttpRequestMethod,
     url: string,
     body: Object | null,
-    options: Object | null
-  ) {
-    this._body = body;
-    this._method = method;
-    this._url = url;
-    this._body = body;
-    this._options = options;
-  }
+    params: Object | null
+    headers: Object | null
+}
 
-  get body(): Object | null {
-    return this._body;
-  }
-
-  get url(): string {
-    return this._url;
-  }
-
-  get method(): string {
-    return this._method;
-  }
+export interface HttpResponse {
+    status: number;
+    headers: Object;
+    url: string;
+    data?: Object;
+    error?: string
 }
 
 export enum HttpRequestMethod {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-  OPTIONS = 'OPTIONS'
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    DELETE = 'DELETE',
+    OPTIONS = 'OPTIONS',
+    HEAD = 'HEAD'
 }
