@@ -34,6 +34,8 @@ export interface IHttp {
 
     setRequestTimeout(options: { timeout: number }): Promise<any>;
 
+    setCookie(options: { host: string, cookie: string }): Promise<any>
+
     getCookieString(options: { host: string }): Promise<{ value: string }>;
 
     clearCookies(): Promise<any>;

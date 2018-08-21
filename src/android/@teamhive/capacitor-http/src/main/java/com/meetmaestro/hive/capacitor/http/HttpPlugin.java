@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Authenticator;
@@ -51,8 +52,8 @@ import okhttp3.Route;
 
 @NativePlugin()
 public class HttpPlugin extends Plugin {
-    private final Map<String, Map<String, String>> headers = new HashMap<String, Map<String, String>>();
-    private final Map<String, String> basicAuthData = new HashMap<String, String>();
+    private final Map<String, Map<String, String>> appHeaders = new HashMap<>();
+    private final Map<String, String> basicAuthData = new HashMap<>();
     private String dataSerializer = TextDataSerializer;
     private long requestTimeout = 60;
     private final SetCookieCache cookieCache = new SetCookieCache();
@@ -62,6 +63,12 @@ public class HttpPlugin extends Plugin {
     private static final String TextDataSerializer = "text";
     private static final String JSONDataSerializer = "json";
     private static final String UrlencodedDataSerializer = "urlencoded";
+    private static final String GET = "GET";
+    private static final String POST = "POST";
+    private static final String PUT = "PUT";
+    private static final String  DELETE = "DELETE";
+    private static final String OPTIONS = "OPTIONS";
+    private static final String HEAD = "HEAD";
 
     @Override
     public void load() {
@@ -77,6 +84,7 @@ public class HttpPlugin extends Plugin {
         String password = call.getString("password");
         Uri hostUri = Uri.parse(host);
         basicAuthData.put(hostUri.getHost(), Credentials.basic(username, password));
+        call.resolve();
     }
 
     @PluginMethod()
@@ -101,14 +109,15 @@ public class HttpPlugin extends Plugin {
         String host = call.getString("host");
         String header = call.getString("header");
         String value = call.getString("value");
-        Map<String, String> oldHeaders = headers.get(host);
+        Uri hostUri = Uri.parse(host);
+        Map<String, String> oldHeaders = appHeaders.get(hostUri.getHost());
         if (oldHeaders != null) {
             oldHeaders.put(header, value);
-            headers.put(host, oldHeaders);
+            appHeaders.put(hostUri.getHost(), oldHeaders);
         } else {
             Map<String, String> newHeader = new HashMap<>();
             newHeader.put(header, value);
-            headers.put(host, newHeader);
+            appHeaders.put(hostUri.getHost(), newHeader);
         }
         call.resolve();
     }
@@ -116,20 +125,22 @@ public class HttpPlugin extends Plugin {
     @PluginMethod()
     public void getHeaders(PluginCall call) {
         String host = call.getString("host");
-        Map<String, String> currentHeaders = headers.get(host);
+        Uri hostUri = Uri.parse(host);
+        Map<String, String> currentHeaders = appHeaders.get(hostUri.getHost());
         JSObject headers = new JSObject();
         if (currentHeaders != null) {
             JSONObject json = new JSONObject(currentHeaders);
             try {
                 JSObject object = JSObject.fromJSONObject(json);
                 headers.put("value", object);
-                call.resolve(object);
+                call.resolve(headers);
             } catch (JSONException e) {
-                JSObject object = new JSObject();
-                call.resolve(object);
+                call.resolve(headers);
             }
         } else {
+            JSObject object = new JSObject();
             headers.put("value", new JSObject());
+            call.resolve(headers);
         }
     }
 
@@ -250,11 +261,18 @@ public class HttpPlugin extends Plugin {
         MediaType type = MediaType.parse(contentType);
 
         Request.Builder requestBuilder = new Request.Builder();
-        if(!method.equals("GET")){
-            RequestBody requestBody = RequestBody.create(type, body.toString());
-            requestBuilder.method(method, requestBody);
+
+        switch (method){
+            case POST:
+            case PUT:
+            case OPTIONS:
+                RequestBody requestBody = RequestBody.create(type, body.toString());
+                requestBuilder.method(method, requestBody);
+               break;
         }
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        Uri hostUri = Uri.parse(url);
+        final String basicAuth = basicAuthData.get(hostUri.getHost());
         if (params != null) {
             Iterator<String> keys = params.keys();
             if (keys.hasNext()) {
@@ -274,6 +292,16 @@ public class HttpPlugin extends Plugin {
                 String value = headers.optString(key);
                 headersBuilder.set(key, value);
             }
+
+            Map<String,String> domainHeaders = appHeaders.get(hostUri.getHost());
+
+            if(domainHeaders != null){
+                for (String key : domainHeaders.keySet()) {
+                    String value = domainHeaders.get(key);
+                    headersBuilder.set(key, value);
+                }
+            }
+
             requestBuilder.headers(headersBuilder.build());
         }
 
@@ -292,9 +320,8 @@ public class HttpPlugin extends Plugin {
                 }
 
                 Request newRequest = response.request();
-                String basicAuth = basicAuthData.get(newRequest.url().host());
                 if (basicAuth != null) {
-                    return response.request().newBuilder().addHeader("Authorization", basicAuth).build();
+                    return newRequest.newBuilder().addHeader("Authorization", basicAuth).build();
                 }
 
                 return null;

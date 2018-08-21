@@ -32,6 +32,7 @@ export class Http implements IHttp {
         return HttpPlugin.request(options);
     }
 
+
     clearCookies(): Promise<any> {
         return HttpPlugin.clearCookies();
     }
@@ -70,6 +71,10 @@ export class Http implements IHttp {
 
     setRequestTimeout(options: { timeout: number }): Promise<any> {
         return HttpPlugin.setRequestTimeout(options);
+    }
+
+    setCookie(options: { host: string; cookie: string }): Promise<any> {
+        return HttpPlugin.setCookie(options);
     }
 
 }

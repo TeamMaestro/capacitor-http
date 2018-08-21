@@ -78,6 +78,10 @@ export class HttpPluginWeb extends WebPlugin implements IHttp {
         return Promise.resolve(options) as any;
     }
 
+    setCookie(options: { host: string; cookie: string }): Promise<any> {
+        return Promise.resolve(options) as any;
+    }
+
 }
 
 const HttpPlugin = new HttpPluginWeb();
