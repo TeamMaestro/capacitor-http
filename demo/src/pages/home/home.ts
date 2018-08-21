@@ -15,24 +15,46 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     const host = 'http://requestbin.fullcontact.com/vffejmvf';
+    await this.http.setBasicAuth({
+      host: host,
+      username: 'guest',
+      password: 'guest'
+    });
 
-      this.http.request({
-        body: {firstName: 'Osei', lastName: 'fortune'},
-        method: HttpRequestMethod.POST,
-        headers: {'X': 'TEST-X'},
-        params: {'stuff': 'Yes'},
-        url: host
-      }).then(response =>{
-        console.log('request response', response);
-      });
+    await this.http.setHeader({
+      host: host,
+      header: 'OutSider-Header',
+      value: 'Something'
+    });
+
+
+    await this.http.setCookie({
+      host: host,
+      cookie: 'yummy_cookie=choco'
+    });
+
+    await this.http.setCookie({
+      host: host,
+      cookie: 'tasty_cookie=strawberry'
+    });
+
+    this.http.request({
+      body: {firstName: 'Osei', lastName: 'fortune'},
+      method: HttpRequestMethod.POST,
+      headers: {'X': 'TEST-X'},
+      params: {'stuff': 'Yes'},
+      url: host
+    }).then(response => {
+      console.log('request response', response);
+    });
 
 
     this.http.post({
-      body: {type : 'post'},
+      body: {type: 'post'},
       params: null,
       url: host,
       headers: null
-    }).then(response =>{
+    }).then(response => {
       console.log('post response', response);
     });
 
@@ -42,7 +64,7 @@ export class HomePage implements OnInit {
       headers: null,
       params: null,
       url: host
-    }).then(response =>{
+    }).then(response => {
       console.log('put response', response);
     });
 
@@ -51,15 +73,16 @@ export class HomePage implements OnInit {
       headers: {'X': 'TEST-X'},
       params: {'stuff': 'Yes'},
       url: host
-    }).then(response =>{
+    }).then(response => {
       console.log('get response', response);
     });
+    
 
     this.http.head({
       headers: null,
       params: null,
       url: host
-    }).then(response =>{
+    }).then(response => {
       console.log('head response', response);
     });
 
@@ -67,7 +90,7 @@ export class HomePage implements OnInit {
       headers: {'X': 'TEST-X'},
       params: {'stuff': 'Yes'},
       url: host
-    }).then(response =>{
+    }).then(response => {
       console.log('options response', response);
     });
 
@@ -75,7 +98,7 @@ export class HomePage implements OnInit {
       headers: null,
       params: null,
       url: host
-    }).then(response =>{
+    }).then(response => {
       console.log('delete response', response);
     });
 
