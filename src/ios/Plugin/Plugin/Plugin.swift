@@ -61,14 +61,24 @@ public class HttpPlugin: CAPPlugin {
         let header = call.getString("header") ?? ""
         let value = call.getString("value") ?? ""
         let host = call.getString("host") ?? ""
-        let hostUri = URL.init(string: host)!;
-        var currentHeaders = appHeaders[hostUri.host!]
-        if(currentHeaders != nil){
-            currentHeaders![header] = value;
+        var currentHeaders: [String:String]?
+        let hostValue: String?
+        if(host == "*"){
+            currentHeaders = appHeaders[host]
+            hostValue = host
         }else{
-            currentHeaders = [header:value]
+            let hostUri = URL.init(string: host)!;
+            var currentHeaders = appHeaders[hostUri.host!]
+            if(currentHeaders != nil){
+                currentHeaders![header] = value;
+            }else{
+                currentHeaders = [header:value]
+            }
+            hostValue = hostUri.host!
         }
-        appHeaders[hostUri.host!] = currentHeaders
+        
+        appHeaders[hostValue!] = currentHeaders
+        
         call.resolve()
     }
     
@@ -161,11 +171,19 @@ public class HttpPlugin: CAPPlugin {
         let url = call.getString("url") ?? ""
         let body = call.getObject("body")
         let method = HTTPMethod.init(rawValue: call.getString("method") ?? "GET")!
-        let headers = call.getObject("headers");
+        var headers = call.getObject("headers") ?? [:];
         let params = call.getObject("params");
         var data: Parameters? = nil
         if(url.isEmpty){
             call.reject("")
+        }
+        
+        let universalHeaders = appHeaders["*"]
+        
+        if(universalHeaders != nil){
+            for (key,value) in universalHeaders! {
+                headers[key] = value
+            }
         }
         var hostURL: URL? = nil
         if(params != nil){

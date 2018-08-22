@@ -50,7 +50,6 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/intermediate-jars" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/jniLibs" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/packaged-aidl" />
       <excludeFolder url="file://$MODULE_DIR$/../../../../demo/node_modules/@teamhive/capacitor-http/android/@teamhive/capacitor-http/build/intermediates/packagedAssets" />

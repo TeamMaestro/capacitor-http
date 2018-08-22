@@ -109,15 +109,25 @@ public class HttpPlugin extends Plugin {
         String host = call.getString("host");
         String header = call.getString("header");
         String value = call.getString("value");
-        Uri hostUri = Uri.parse(host);
-        Map<String, String> oldHeaders = appHeaders.get(hostUri.getHost());
+
+        Map<String, String> oldHeaders;
+        String hostValue;
+        if(host.equals("*")){
+            hostValue = "*";
+            oldHeaders = appHeaders.get("*");
+        }else{
+            Uri hostUri = Uri.parse(host);
+            hostValue = hostUri.getHost();
+            oldHeaders = appHeaders.get(hostValue);
+        }
+
         if (oldHeaders != null) {
             oldHeaders.put(header, value);
-            appHeaders.put(hostUri.getHost(), oldHeaders);
+            appHeaders.put(hostValue, oldHeaders);
         } else {
             Map<String, String> newHeader = new HashMap<>();
             newHeader.put(header, value);
-            appHeaders.put(hostUri.getHost(), newHeader);
+            appHeaders.put(hostValue, newHeader);
         }
         call.resolve();
     }
@@ -302,6 +312,14 @@ public class HttpPlugin extends Plugin {
                 }
             }
 
+            Map<String,String> universalHeaders = appHeaders.get("*");
+            
+            if(universalHeaders != null){
+                for (String key: universalHeaders.keySet()){
+                    String value = universalHeaders.get(key);
+                    headersBuilder.set(key,value);
+                }
+            }
             requestBuilder.headers(headersBuilder.build());
         }
 
