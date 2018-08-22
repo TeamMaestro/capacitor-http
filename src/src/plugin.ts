@@ -4,27 +4,28 @@ import { Plugins } from '@capacitor/core';
 const {HttpPlugin} = Plugins;
 
 export class Http implements IHttp {
-    delete(options: { url: string; params: Object | null; headers: Object | null }): Promise<HttpResponse> {
+
+    delete(options: { url: string; params?: Object | null; headers?: Object | null }): Promise<HttpResponse> {
         return HttpPlugin.delete(options);
     }
 
-    get(options: { url: string; params: Object | null; headers: Object | null }): Promise<HttpResponse> {
+    get(options: { url: string; params?: Object | null; headers?: Object | null }): Promise<HttpResponse> {
         return HttpPlugin.get(options);
     }
 
-    head(options: { url: string; params: Object | null; headers: Object | null }): Promise<HttpResponse> {
+    head(options: { url: string; params?: Object | null; headers?: Object | null }): Promise<HttpResponse> {
         return HttpPlugin.head(options);
     }
 
-    options(options: { url: string; params: Object | null; headers: Object | null }): Promise<HttpResponse> {
+    options(options: { url: string; params?: Object | null; headers?: Object | null }): Promise<HttpResponse> {
         return HttpPlugin.options(options);
     }
 
-    post(options: { url: string; body: Object | null; params: Object | null; headers: Object | null }): Promise<HttpResponse> {
+    post(options: { url: string; body: Object | null; params?: Object | null; headers?: Object | null }): Promise<HttpResponse> {
         return HttpPlugin.post(options);
     }
 
-    put(options: { url: string; body: Object | null; params: Object | null; headers: Object | null }): Promise<HttpResponse> {
+    put(options: { url: string; body: Object | null; params?: Object | null; headers?: Object | null }): Promise<HttpResponse> {
         return HttpPlugin.put(options);
     }
 

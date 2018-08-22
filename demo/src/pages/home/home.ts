@@ -38,15 +38,47 @@ export class HomePage implements OnInit {
       cookie: 'tasty_cookie=strawberry'
     });
 
-    this.http.request({
+
+
+    await this.http.setCookie({
+      host: 'https://randomuser.me/api/',
+      cookie: 'yummy_cookie=choco'
+    });
+
+    await this.http.setCookie({
+      host: 'https://randomuser.me/api/',
+      cookie: 'tasty_cookie=strawberry'
+    });
+
+    await this.http.setDataSerializer({
+      serializer: 'json'
+    });
+
+   const person =  await this.http.get({
+      url: 'https://randomuser.me/api/',
+      params: null,
+      headers: null
+    });
+
+    console.log(JSON.parse(person.data as any));
+
+    const beforeCookie = await this.http.getCookieString({host:'https://randomuser.me/api/'});
+    console.log('before cookie',beforeCookie);
+
+    await this.http.removeCookies({host:'https://randomuser.me/api/'});
+
+    const afterCookie = await this.http.getCookieString({host:'https://randomuser.me/api/'});
+    console.log('after cookie',afterCookie);
+
+    const response = await this.http.request({
       body: {firstName: 'Osei', lastName: 'fortune'},
       method: HttpRequestMethod.POST,
       headers: {'X': 'TEST-X'},
       params: {'stuff': 'Yes'},
       url: host
-    }).then(response => {
-      console.log('request response', response);
     });
+
+    console.log('request response', response);
 
 
     this.http.post({
@@ -76,7 +108,7 @@ export class HomePage implements OnInit {
     }).then(response => {
       console.log('get response', response);
     });
-    
+
 
     this.http.head({
       headers: null,

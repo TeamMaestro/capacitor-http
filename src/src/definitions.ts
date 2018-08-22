@@ -6,19 +6,20 @@ declare global {
 
 
 export interface IHttp {
+
     request(options: HttpRequest): Promise<HttpResponse>;
 
-    get(options: { url: string, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+    get(options: { url: string, params?: Object | null, headers?: Object | null }): Promise<HttpResponse>;
 
-    post(options: { url: string, body: Object | null, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+    post(options: { url: string, body: Object | null, params?: Object | null, headers?: Object | null }): Promise<HttpResponse>;
 
-    delete(options: { url: string, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+    delete(options: { url: string, params?: Object | null, headers?: Object | null }): Promise<HttpResponse>;
 
-    put(options: { url: string, body: Object | null, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+    put(options: { url: string, body: Object | null, params?: Object | null, headers?: Object | null }): Promise<HttpResponse>;
 
-    options(options: { url: string, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+    options(options: { url: string, params?: Object | null, headers?: Object | null }): Promise<HttpResponse>;
 
-    head(options: { url: string, params: Object | null, headers: Object | null }): Promise<HttpResponse>;
+    head(options: { url: string, params?: Object | null, headers?: Object | null }): Promise<HttpResponse>;
 
     setBasicAuth(options: { host: string, username: string, password: string }): Promise<any>;
 
@@ -55,7 +56,7 @@ export interface HttpResponse {
     status: number;
     headers: Object;
     url: string;
-    data?: Object;
+    data?: any;
     error?: string
 }
 

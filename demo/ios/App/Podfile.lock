@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.7.3)
   - Capacitor (1.0.0-beta.5):
     - CapacitorCordova (= 1.0.0-beta.5)
     - GCDWebServer (~> 3.0)
@@ -7,6 +8,7 @@ PODS:
     - GCDWebServer/Core (= 3.4.2)
   - GCDWebServer/Core (3.4.2)
   - TeamhiveCapacitorHttp (0.0.1):
+    - Alamofire (~> 4.7)
     - Capacitor
 
 DEPENDENCIES:
@@ -16,6 +18,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - GCDWebServer
 
 EXTERNAL SOURCES:
@@ -27,10 +30,11 @@ EXTERNAL SOURCES:
     :path: "../../../src"
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Capacitor: b056d1d9d943d9891bdefd3ebce0f5c904ea9903
   CapacitorCordova: eda30d3f50b774ec2ed61c2a455b5cda336c08ae
   GCDWebServer: 8d67ee9f634b4bb91eb4b8aee440318a5fc6debd
-  TeamhiveCapacitorHttp: 5a5505d1b13afb543571c6ca000a97793be1b83e
+  TeamhiveCapacitorHttp: 3c9c6df06e4a0cb173c57f718ea7fc84055573df
 
 PODFILE CHECKSUM: 891988ea68c1d71ff50a8b4b2c3ec8cc529a465c
 
