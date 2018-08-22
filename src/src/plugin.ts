@@ -1,4 +1,4 @@
-import { HttpRequest, HttpResponse, IHttp } from './definitions';
+import { HttpDataSerializerType, HttpRequest, HttpResponse, IHttp } from './definitions';
 import { Plugins } from '@capacitor/core';
 
 const {HttpPlugin} = Plugins;
@@ -62,7 +62,7 @@ export class Http implements IHttp {
         return HttpPlugin.setBasicAuth(options);
     }
 
-    setDataSerializer(options: { serializer: 'text' | 'json' | 'urlencoded' }): Promise<any> {
+    setDataSerializer(options: { serializer: HttpDataSerializerType }): Promise<any> {
         return HttpPlugin.setDataSerializer(options);
     }
 

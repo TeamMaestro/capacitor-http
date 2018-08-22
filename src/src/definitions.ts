@@ -4,6 +4,7 @@ declare global {
     }
 }
 
+export type HttpDataSerializerType = 'text' | 'json' | 'urlencoded';
 
 export interface IHttp {
 
@@ -29,7 +30,7 @@ export interface IHttp {
 
     getHeaders(options: { host: string }): Promise<{ value: any }>;
 
-    setDataSerializer(options: { serializer: 'text' | 'json' | 'urlencoded' }): Promise<any>;
+    setDataSerializer(options: { serializer: HttpDataSerializerType }): Promise<any>;
 
     getDataSerializer(): Promise<{ value: string }>;
 
