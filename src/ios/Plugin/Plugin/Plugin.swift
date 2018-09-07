@@ -25,14 +25,15 @@ public class HttpPlugin: CAPPlugin {
         let hostUri = URL.init(string: host!)!;
         let username = call.getString("username") ?? "";
         let password = call.getString("password") ?? "";
-        let rawString = String(format: "%@:%@", username,password);
-        let rawData = rawString.data(using: .utf8)!
-        let base64 = rawData.base64EncodedString()
-        let authString = "Basic \(base64)"
-        basicAuthData[hostUri.host!] = authString
+        /*let rawString = String(format: "%@:%@", username,password);
+         let rawData = rawString.data(using: .utf8)!
+         let base64 = rawData.base64EncodedString()
+         let authString = "Basic \(base64)"
+         basicAuthData[hostUri.host!] = authString*/
+        basicAuthData[hostUri.host!] = Request.authorizationHeader(user: username, password: password)?.value
         call.resolve()
     }
-    
+
     @objc func getBasicAuthHeader(_ call: CAPPluginCall){
         let host = call.getString("host")
         var auth: String?
@@ -161,6 +162,7 @@ public class HttpPlugin: CAPPlugin {
     }
 
     @objc func initialize(){
+        // Alamofire.SessionManager.default.startRequestsImmediately = false;
         Alamofire.SessionManager.default.session.configuration.timeoutIntervalForRequest = 10
         Alamofire.SessionManager.default.session.configuration.timeoutIntervalForResource = 10
     }
@@ -197,6 +199,7 @@ public class HttpPlugin: CAPPlugin {
             call.reject("")
         }
 
+
         let universalHeaders = appHeaders["*"]
 
         if(universalHeaders != nil){
@@ -204,6 +207,9 @@ public class HttpPlugin: CAPPlugin {
                 headers[key] = value
             }
         }
+
+
+
         var hostURL: URL? = nil
         if(params != nil){
             var query = URLComponents(string: url)
@@ -213,6 +219,30 @@ public class HttpPlugin: CAPPlugin {
             hostURL = query?.url
         }else{
             hostURL =  URL(string: url)
+        }
+
+        for (key,value) in basicAuthData {
+            if(key == "*"){
+                headers["Authorization"] = value
+            }
+            if(key.contains((hostURL?.host)!)){
+                headers["Authorization"] = value;
+            }
+        }
+
+        let domainHeaders = appHeaders[(hostURL?.host)!];
+
+        if(domainHeaders  != nil){
+            for (key,value) in domainHeaders! {
+                headers[key] = value
+            }
+        }
+
+
+
+        var httpHeaders: HTTPHeaders = [:]
+        for (key,value) in headers {
+            httpHeaders[key] = value as? String
         }
         let urlRequest = URLRequest(url: hostURL!)
         let urlString = urlRequest.url?.absoluteString
@@ -224,15 +254,15 @@ public class HttpPlugin: CAPPlugin {
         }
         switch dataSerializer {
         case "json":
-            httpRequest = Alamofire.request(urlString!, method: method, parameters: data, encoding: JSONEncoding.default, headers: headers as? HTTPHeaders)
+            httpRequest = Alamofire.request(urlString!, method: method, parameters: data, encoding: JSONEncoding.default, headers: httpHeaders)
         case "urlencoded":
-            httpRequest = Alamofire.request(urlString!, method: method, parameters: data, encoding: URLEncoding.default, headers: headers as? HTTPHeaders)
+            httpRequest = Alamofire.request(urlString!, method: method, parameters: data, encoding: URLEncoding.default, headers: httpHeaders)
         default:
-            httpRequest = Alamofire.request(urlString!, method: method, parameters: data, encoding: data != nil ? toString(data!) : "", headers: headers as? HTTPHeaders)
+            httpRequest = Alamofire.request(urlString!, method: method, parameters: data, encoding: data != nil ? toString(data!) : "", headers: httpHeaders)
         }
 
-        var responseData: [String:Any] = [:]
 
+        var responseData: [String:Any] = [:]
         httpRequest?
             .responseString { response in
                 switch(response.result){
@@ -246,17 +276,18 @@ public class HttpPlugin: CAPPlugin {
                     responseData["status"] = response.response?.statusCode ?? -1
                     responseData["error"] = error.localizedDescription
                     responseData["headers"] = response.request?.allHTTPHeaderFields
+
                     break;
                 }
                 call.resolve(responseData)
-        }
+
+            }.resume()
 
     }
 
     @objc func get(_ call: CAPPluginCall) {
         call.options["method"] = HTTPMethod.get.rawValue
         request(call)
-
     }
     
     @objc func post(_ call: CAPPluginCall) {
