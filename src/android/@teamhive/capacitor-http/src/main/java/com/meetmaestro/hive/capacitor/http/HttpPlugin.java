@@ -245,7 +245,7 @@ public class HttpPlugin extends Plugin {
         }
         JSONObject params;
         try {
-           params = data.getJSONObject("params");
+            params = data.getJSONObject("params");
         } catch (JSONException e) {
             params = new JSONObject();
         }
@@ -278,7 +278,7 @@ public class HttpPlugin extends Plugin {
             case OPTIONS:
                 RequestBody requestBody = RequestBody.create(type, body.toString());
                 requestBuilder.method(method, requestBody);
-               break;
+                break;
         }
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         Uri hostUri = Uri.parse(url);
@@ -313,7 +313,7 @@ public class HttpPlugin extends Plugin {
             }
 
             Map<String,String> universalHeaders = appHeaders.get("*");
-            
+
             if(universalHeaders != null){
                 for (String key: universalHeaders.keySet()){
                     String value = universalHeaders.get(key);
@@ -371,12 +371,16 @@ public class HttpPlugin extends Plugin {
                 responseObject.put("url", response.request().url().toString());
                 ResponseBody callResponseBody = response.body();
                 try {
-                    responseObject.put("data", new JSObject(callResponseBody != null ? callResponseBody.toString() : ""));
-                } catch (JSONException e) {
+                    String data = callResponseBody != null ? callResponseBody.string() : "";
+                    responseObject.put("data", data);
+                } catch (IOException e) {
                     responseObject.put("data", null);
+                }finally {
+                    call.resolve(responseObject);
+                    if (callResponseBody != null) {
+                        callResponseBody.close();
+                    }
                 }
-                call.resolve(responseObject);
-
             }
         });
     }
