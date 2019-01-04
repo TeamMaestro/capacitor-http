@@ -51,7 +51,7 @@ import okhttp3.Route;
 
 
 @NativePlugin()
-public class HttpPlugin extends Plugin {
+public class Http extends Plugin {
     private final Map<String, Map<String, String>> appHeaders = new HashMap<>();
     private final Map<String, String> basicAuthData = new HashMap<>();
     private String dataSerializer = TextDataSerializer;

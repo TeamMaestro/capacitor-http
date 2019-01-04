@@ -1,6 +1,6 @@
 declare global {
     interface PluginRegistry {
-        HttpPlugin?: IHttp;
+        Http?: IHttp;
     }
 }
 
